@@ -79,9 +79,7 @@ class _bookScreenBody extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_outlined),
-        onPressed:(
-          bookService.saveOrCreateProduct(productForm.tempProduct);
-        ),
+        onPressed: // ADD
       ),
     );
   }
@@ -90,8 +88,8 @@ class _bookScreenBody extends StatelessWidget {
 class _ProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final productForm = Provider.of<ProductFormProvider>(context);
-    final tempProduct = productForm.tempProduct;
+    final productForm = Provider.of<BookFormProvider>(context);
+    final tempProduct = productForm.tempBook;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -105,41 +103,43 @@ class _ProductForm extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               TextFormField(
-                initialValue: tempProduct.name,
-                onChanged: (value) => tempProduct.name = value,
+                initialValue: tempProduct.nom,
+                onChanged: (value) => tempProduct.nom = value,
                 validator: (value) {
                   if (value == null || value.length < 1) {
                     return 'El nom és obligatori';
                   }
                 },
-                decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Nom del producte',
-                  labelText: 'Nom:',
-                ),
               ),
               SizedBox(height: 30),
               TextFormField(
-                keyboardType: TextInputType.number,
-                initialValue: tempProduct.price.toString(),
-                onChanged: (value) {
-                  if (double.tryParse(value) == null) {
-                    tempProduct.price = 0;
-                  } else {
-                    tempProduct.price = double.parse(value);
-                  }
-                },
+                initialValue: tempProduct.descripcio,
+                onChanged: (value) => tempProduct.nom = value,
                 validator: (value) {
                   if (value == null || value.length < 1) {
-                    return 'El preu és obligatori';
+                    return 'La descripció és obligatoria';
                   }
                 },
               ),
-              SizedBox(height: 30),
-              SwitchListTile.adaptive(
-                value: tempProduct.available,
-                title: Text('Disponible'),
-                activeColor: Colors.indigo,
-                onChanged: (value) => productForm.updateAvailability(value),
+                           SizedBox(height: 30),
+              TextFormField(
+                initialValue: tempProduct.descripcio,
+                onChanged: (value) => tempProduct.any = value,
+                validator: (value) {
+                  if (value == null || value.length < 1) {
+                    return 'L\'any és obligatori';
+                  }
+                },
+              ),
+
+                            TextFormField(
+                initialValue: tempProduct.descripcio,
+                onChanged: (value) => tempProduct.autor = value,
+                validator: (value) {
+                  if (value == null || value.length < 1) {
+                    return 'El nom de l\'autor és obligatori';
+                  }
+                },
               ),
               SizedBox(height: 30),
             ],
