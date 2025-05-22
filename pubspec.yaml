@@ -31,6 +31,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
+  http: ^1.4.0
   provider: ^6.1.5
   shared_preferences: ^2.5.3
 
@@ -50,8 +51,8 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/jar-loading.gif
-     - assets/no_image.jpg
+    - assets/jar-loading.gif
+    - assets/no_image.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
