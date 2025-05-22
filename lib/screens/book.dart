@@ -79,7 +79,11 @@ class _bookScreenBody extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_outlined),
-        onPressed: // ADD
+        onPressed: () async {
+          // SOLO SE GUARDAN CAMBIOS AQUÍ
+          if (!productForm.isValidForm()) return;
+          bookService.createProduct(productForm.tempBook);
+        }
       ),
     );
   }

@@ -36,9 +36,8 @@ class MyApp extends StatelessWidget {
       title: 'Exam App',
       initialRoute: 'home',
       routes: {
-        'login': (_) => LoginScreen(),
         'home': (_) => HomeScreen(),
-        // 'book': (_) => Book(),
+         'book': (_) => BookScreen(),
       },
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.grey[300],
