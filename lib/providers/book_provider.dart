@@ -18,30 +18,23 @@ class BookProvider extends ChangeNotifier{
   getAllBooks() async {
     var url = Uri.https(_baseUrl, "api/books");
     final result = await http.get(url);
-    
-    final Map<String, dynamic> bookResponse = json.decode(result.body);
 
-    // Guardam cadascun dels objectes a la nostra llista books
-    bookResponse.forEach((key, value) {
-      final tempBook = BookModel.fromMap(value);
-      tempBook.id = key; //CHECK
-      books.add(tempBook);
-    });
+   // final resp = BookModel.bookModelFromMap(result.body);
 
     notifyListeners();
 
   }
 
 
-    Future<String> createProduct(BookModel product) async {
-    final url = Uri.https(_baseUrl, 'api/books');
-    final resp = await http.post(url, body: product.toJson());
-    final decodedData = jsonDecode(resp.body);
-    print(decodedData['name']);
-    product.id = decodedData['name'];
+    // Future<String> createProduct(BookModel product) async {
+    // final url = Uri.https(_baseUrl, 'api/books');
+    // final resp = await http.post(url, body: product.toJson());
+    // final decodedData = jsonDecode(resp.body);
+    // print(decodedData['name']);
+    // product.id = decodedData['name'];
 
-    this.books.add(product);
+    // this.books.add(product);
     
-    return product.id!;
-  }
+    // return product.id!;
+  // }
 }

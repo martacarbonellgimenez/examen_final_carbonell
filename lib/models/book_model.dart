@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+List<BookModel> bookModelFromMap(String str) => List<BookModel>.from(json.decode(str).map((x) => BookModel.fromMap(x)));
+
+String bookModelToMap(List<BookModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
+
 class BookModel {
     String id;
     String nom;
     String descripcio;
-    String? foto;
+    String foto;
     String any;
     String autor;
 
@@ -12,14 +16,10 @@ class BookModel {
         required this.id,
         required this.nom,
         required this.descripcio,
-        this.foto,
+        required this.foto,
         required this.any,
         required this.autor,
     });
-
-    factory BookModel.fromJson(String str) => BookModel.fromMap(json.decode(str));
-
-    String toJson() => json.encode(toMap());
 
     factory BookModel.fromMap(Map<String, dynamic> json) => BookModel(
         id: json["id"],

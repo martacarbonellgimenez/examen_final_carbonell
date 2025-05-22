@@ -82,7 +82,7 @@ class _bookScreenBody extends StatelessWidget {
         onPressed: () async {
           // SOLO SE GUARDAN CAMBIOS AQUÍ
           if (!productForm.isValidForm()) return;
-          bookService.createProduct(productForm.tempBook);
+    //      bookService.createProduct(productForm.tempBook);
         }
       ),
     );

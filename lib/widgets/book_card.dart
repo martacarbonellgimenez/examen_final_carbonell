@@ -21,7 +21,7 @@ class BookCard extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             _BackgroudWidget(url: book.foto), 
-            _BookDetails(name: book.nom), // AÑADIR
+            _BookDetails(name: book.nom), 
           ],
         ),
       ),

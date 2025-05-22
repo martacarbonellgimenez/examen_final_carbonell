@@ -14,7 +14,10 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Books'),
       ),
-      body: ListView.builder(
+      body: 
+      productsService.books.length == 0
+      ? CircularProgressIndicator()
+      : ListView.builder(
         itemCount: productsService.books.length,
         itemBuilder: (BuildContext context, int index) => GestureDetector(
           child: BookCard(book: productsService.books[index]), // AÑADIR!
