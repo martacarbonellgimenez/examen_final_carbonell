@@ -9,6 +9,8 @@ class BookProvider extends ChangeNotifier{
 
   List<BookModel> books = [];
 
+  late BookModel selectedBook;
+
   BookProvider() { 
     this.getAllBooks();
   }
@@ -28,5 +30,18 @@ class BookProvider extends ChangeNotifier{
 
     notifyListeners();
 
+  }
+
+
+    Future<String> createProduct(BookModel product) async {
+    final url = Uri.https(_baseUrl, 'api/books');
+    final resp = await http.post(url, body: product.toJson());
+    final decodedData = jsonDecode(resp.body);
+    print(decodedData['name']);
+    product.id = decodedData['name'];
+
+    this.books.add(product);
+    
+    return product.id!;
   }
 }

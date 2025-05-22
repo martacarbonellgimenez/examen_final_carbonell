@@ -1,36 +1,39 @@
+import 'package:examen_final_carbonell/providers/book_form_provider.dart';
+import 'package:examen_final_carbonell/providers/book_provider.dart';
+import 'package:examen_final_carbonell/widgets/image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class ProductScreen extends StatelessWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+class BookScreen extends StatelessWidget {
+  const BookScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productService = Provider.of<ProductsService>(context);
+    final booksProvider = Provider.of<BookProvider>(context);
 
     return ChangeNotifierProvider(
-      create: (_) => ProductFormProvider(productService.selectedProduct),
-      child: _productScreenBody(productService: productService),
+      create: (_) => BookFormProvider(booksProvider.selectedBook),
+      child: _bookScreenBody(bookService: booksProvider),
     );
   }
 }
 
-class _productScreenBody extends StatelessWidget {
-  const _productScreenBody({super.key, required this.productService});
+class _bookScreenBody extends StatelessWidget {
+  const _bookScreenBody({super.key, required this.bookService});
 
-  final ProductsService productService;
+  final BookProvider bookService;
 
   @override
   Widget build(BuildContext context) {
-    final productForm = Provider.of<ProductFormProvider>(context);
+    final productForm = Provider.of<BookFormProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                ProductImage(url: productService.selectedProduct.picture),
+                BookImage(url: bookService.selectedBook.foto),
                 Positioned(
                   top: 60,
                   left: 20,
@@ -58,7 +61,6 @@ class _productScreenBody extends StatelessWidget {
                       final XFile? photo = await picker.pickImage(
                         source: ImageSource.camera,
                       );
-                      productService.updateImage(photo!.path);
                     },
                     icon: Icon(
                       Icons.camera_alt_outlined,
@@ -76,20 +78,10 @@ class _productScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: productService.isSaving
-        ? CircularProgressIndicator(color: Colors.white)
-        : Icon(Icons.save_outlined),
-        onPressed:(productService.isSaving
-          ? null
-          :() async {
-          // SOLO SE GUARDAN CAMBIOS AQUÍ
-          if (!productForm.isValidForm()) return;
-          final String? image = await productService.uploadImageToCloud();
-          if(image != null) {
-            productForm.tempProduct.picture = image;
-          }
-          productService.saveOrCreateProduct(productForm.tempProduct);
-        }),
+        child: Icon(Icons.save_outlined),
+        onPressed:(
+          bookService.saveOrCreateProduct(productForm.tempProduct);
+        ),
       ),
     );
   }
