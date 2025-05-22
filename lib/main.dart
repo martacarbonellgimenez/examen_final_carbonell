@@ -1,5 +1,7 @@
 import 'package:examen_final_carbonell/preferences/preferences.dart';
+import 'package:examen_final_carbonell/providers/book_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/screens.dart';
 
@@ -17,13 +19,26 @@ class AppState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiProvider(
+       providers: [ChangeNotifierProvider(create: (_) => BookProvider(), lazy: false)],
+    child: MyApp(),
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+    Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Productes App',
-      initialRoute: 'login',
+      title: 'Exam App',
+      initialRoute: 'home',
       routes: {
         'login': (_) => LoginScreen(),
         'home': (_) => HomeScreen(),
+        // 'book': (_) => Book(),
       },
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.grey[300],
